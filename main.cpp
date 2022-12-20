@@ -1,6 +1,5 @@
 #include <iostream>
-#include <math.h>
-//Tính trung bình nhân các số dương trong ma trận các số thực
+// Hãy biên đổi ma trận số thực bằng cách thay các giá trị bằng giá trị nguyên gần nó nhất
 using namespace std;
 #define Max 100
 void nhapmatran(float a[][Max],int row, int col)
@@ -27,30 +26,41 @@ void xuatmatran(float a[][Max],int row,int col)
         cout<<endl;
     }
 }
-void tbnhan(float a[][Max],int &c, int &d)
+void biendoi(float a[][Max],int c,int d)
 {
-    float x=1;
-    int dem=0;
-    for(int i=0;i<c;i++)
+    for(int i=0;i<d;i++)
     {
-        for(int j=0;j<d;j++)
+        for(int j=0;j<c;j++)
         {
-           if(a[j][i] >0)
-           {
-               x=x*a[j][i];
-               dem++;
-           }
+             int x=0;
+           float y=0;
+          x=(a[i][j])/1;
+         y=abs((a[i][j]))-abs(x);
+        if(y>=0.5)
+        {
+            if(x>0)
+            {
+                 (a[i][j])=x+1;
+            }
+            else
+            {
+                (a[i][j])=x-1;
+            }
+        }
+
+         else
+        {
+                 (a[i][j])=x;
+
+        }
         }
     }
-    float y=0;
-    y=pow(x,1.0 /dem);
-    cout<<"Trung binh nhan cac so duong trong ma tran bang = "<<y;
 }
 int main()
 {
-   float a[Max][Max];
-   int row,col;
-   do
+    float a[Max][Max];
+    int row,col;
+     do
     {
          cout<<"Nhap vao so cot cua ma tran:"<<endl;
          cin>>col;
@@ -70,8 +80,9 @@ int main()
          }
     }while(row<1 || row >Max);
 
-    nhapmatran(a,col,row);
-    xuatmatran(a,col,row);
-    tbnhan(a,col,row);
+    nhapmatran(a,row,col);
+    xuatmatran(a,row,col);
+    biendoi(a,col,row);
+     xuatmatran(a,row,col);
     return 0;
 }
