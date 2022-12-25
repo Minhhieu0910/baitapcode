@@ -1,5 +1,6 @@
 #include <iostream>
-// Hãy biên đổi ma trận số thực bằng cách thay các giá trị bằng giá trị nguyên gần nó nhất
+/* Liệt kê các dòng trong ma trận các số thực thỏa mãn đồng thời các điều kiện sau:
+  dòng có chứa giá trị âm, giá trị 0 và giá trị dương */
 using namespace std;
 #define Max 100
 void nhapmatran(float a[][Max],int row, int col)
@@ -26,40 +27,47 @@ void xuatmatran(float a[][Max],int row,int col)
         cout<<endl;
     }
 }
-void biendoi(float a[][Max],int c,int d)
+int lietke(float a[][Max], int row, int col)
 {
-    for(int i=0;i<d;i++)
+     int x=0,y=0,z=0;
+        for(int j=0;j<col;j++)
+        {
+            if(a[row][j]>0)
+            {
+                x=1;
+            }
+            else if(a[row][j]<0)
+            {
+               y =1;
+            }
+             else if(a[row][j]==0)
+            {
+                z=1;
+            }
+        }
+    return (x+y+z);
+}
+void hangam(float a[][Max],int row,int col)
+{
+    int dem=0;
+    cout<<"cac dong co chua gia tri am, gia tri 0 va gia tri duong trong ma tran la: ";
+    for(int i=0;i<row;i++)
     {
-        for(int j=0;j<c;j++)
+        if(lietke(a,i,col)==3)
         {
-             int x=0;
-           float y=0;
-          x=(a[i][j])/1;
-         y=abs((a[i][j]))-abs(x);
-        if(y>=0.5)
-        {
-            if(x>0)
-            {
-                 (a[i][j])=x+1;
-            }
-            else
-            {
-                (a[i][j])=x-1;
-            }
+            cout<<i<<"   ";
+            dem++;
         }
-
-         else
-        {
-                 (a[i][j])=x;
-
-        }
-        }
+    }
+    if(dem==0)
+    {
+        cout<<" KHong co";
     }
 }
 int main()
 {
     float a[Max][Max];
-    int row,col;
+    int row,col,hang;
      do
     {
          cout<<"Nhap vao so cot cua ma tran:"<<endl;
@@ -82,7 +90,6 @@ int main()
 
     nhapmatran(a,row,col);
     xuatmatran(a,row,col);
-    biendoi(a,col,row);
-     xuatmatran(a,row,col);
+    hangam(a,row,col);
     return 0;
 }
