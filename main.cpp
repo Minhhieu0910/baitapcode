@@ -1,5 +1,5 @@
 #include <iostream>
-//Tìm giá trị lớn thứ 2 trong ma trận
+//Đếm số lượng chẵn nhỏ nhất
 using namespace std;
 #define Max 100
 void nhapmatran(int a[][Max],int row, int col)
@@ -26,40 +26,69 @@ void xuatmatran(int a[][Max],int row,int col)
         cout<<endl;
     }
 }
-int lonthu2(int a[][Max],int row,int col)
+int sochan(int a[][Max],int row,int col)
 {
-    int x=a[0][0];
-     int y=a[0][0];
+    int x=0;
     for(int i=0;i<row;i++)
     {
         for(int j=0;j<col;j++)
         {
-            if(a[i][j]>x)
-            {
-                x=a[i][j];
-            }
-            if(a[i][j]<y)
-            {
-                y=a[i][j];
-            }
+           if(a[i][j]%2==0)
+           {
+               x=a[i][j];
+               return x;
+           }
+
         }
+    }
+    return 1;
+}
+int nhonhat(int a[][Max],int row,int col)
+{
+    int y=sochan(a,row,col);
+    for(int i=0;i<row;i++)
+    {
+        for(int j=0;j<col;j++)
+        {
+           if(a[i][j]%2==0)
+           {
+               if(a[i][j]<y)
+               {
+                    y=a[i][j];
+               }
+           }
+
+        }
+    }
+   return y;
+}
+void soluong(int a[][Max],int row,int col)
+{
+    int z=nhonhat(a,row,col);
+    if(z==1)
+    {
+        cout<<"khong co so chan trong ma tran";
+    }
+    else
+    {
+         int h=0;
+    for(int i=0;i<row;i++)
+    {
+        for(int j=0;j<col;j++)
+        {
+               if(a[i][j]==z)
+               {
+                    h++;
+               }
+        }
+    }
+    cout<<"so luong so chan nho nhat trong ma tran la:"<<h;
     }
 
-    for(int i=0;i<row;i++)
-    {
-        for(int j=0;j<col;j++)
-        {
-            if(a[i][j]>y & a[i][j]!=x)
-            {
-                y=a[i][j];
-            }
-        }
-    }
-    cout<<y;
 }
 int main()
 {
-    int a[Max][Max];
+     int a[Max][Max];
     int row,col;
      do
     {
@@ -83,7 +112,6 @@ int main()
 
     nhapmatran(a,row,col);
     xuatmatran(a,row,col);
-    lonthu2(a,row,col);
-
+    soluong(a,row,col);
     return 0;
 }
