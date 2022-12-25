@@ -1,9 +1,8 @@
 #include <iostream>
-/* Liệt kê các dòng trong ma trận các số thực thỏa mãn đồng thời các điều kiện sau:
-  dòng có chứa giá trị âm, giá trị 0 và giá trị dương */
+//Tìm giá trị lớn thứ 2 trong ma trận
 using namespace std;
 #define Max 100
-void nhapmatran(float a[][Max],int row, int col)
+void nhapmatran(int a[][Max],int row, int col)
 {
     for(int i=0;i<row;i++)
     {
@@ -15,7 +14,7 @@ void nhapmatran(float a[][Max],int row, int col)
         }
     }
 }
-void xuatmatran(float a[][Max],int row,int col)
+void xuatmatran(int a[][Max],int row,int col)
 {
     cout<<"Ta co ma tran nhu sau:"<<endl;
     for(int i=0;i<row;i++)
@@ -23,51 +22,45 @@ void xuatmatran(float a[][Max],int row,int col)
         for(int j=0;j<col;j++)
         {
             cout<<a[i][j]<<"\t";
-        }
+       }
         cout<<endl;
     }
 }
-int lietke(float a[][Max], int row, int col)
+int lonthu2(int a[][Max],int row,int col)
 {
-     int x=0,y=0,z=0;
-        for(int j=0;j<col;j++)
-        {
-            if(a[row][j]>0)
-            {
-                x=1;
-            }
-            else if(a[row][j]<0)
-            {
-               y =1;
-            }
-             else if(a[row][j]==0)
-            {
-                z=1;
-            }
-        }
-    return (x+y+z);
-}
-void hangam(float a[][Max],int row,int col)
-{
-    int dem=0;
-    cout<<"cac dong co chua gia tri am, gia tri 0 va gia tri duong trong ma tran la: ";
+    int x=a[0][0];
+     int y=a[0][0];
     for(int i=0;i<row;i++)
     {
-        if(lietke(a,i,col)==3)
+        for(int j=0;j<col;j++)
         {
-            cout<<i<<"   ";
-            dem++;
+            if(a[i][j]>x)
+            {
+                x=a[i][j];
+            }
+            if(a[i][j]<y)
+            {
+                y=a[i][j];
+            }
         }
     }
-    if(dem==0)
+
+    for(int i=0;i<row;i++)
     {
-        cout<<" KHong co";
+        for(int j=0;j<col;j++)
+        {
+            if(a[i][j]>y & a[i][j]!=x)
+            {
+                y=a[i][j];
+            }
+        }
     }
+    cout<<y;
 }
 int main()
 {
-    float a[Max][Max];
-    int row,col,hang;
+    int a[Max][Max];
+    int row,col;
      do
     {
          cout<<"Nhap vao so cot cua ma tran:"<<endl;
@@ -90,6 +83,7 @@ int main()
 
     nhapmatran(a,row,col);
     xuatmatran(a,row,col);
-    hangam(a,row,col);
+    lonthu2(a,row,col);
+
     return 0;
 }
